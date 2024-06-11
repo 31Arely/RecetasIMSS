@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Nuevo Usuario</title>
+    <link rel="stylesheet" href="registroUsuario.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Registro de Nuevo Usuario</h1>
+        <form action="/register" method="post">
+            <label for="curp">CURP:</label>
+            <input type="text" id="curp" name="curp" required pattern="^[A-Z]{1}[AEIOU]{1}[A-Z]{2}\d{2}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])[HM]{1}(AS|BC|BS|CC|CL|CM|CS|CH|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}\d{1}$">
+            
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password" required pattern="[A-Za-z0-9]+">
+            
+            <label for="nombre">Nombre(s):</label>
+            <input type="text" id="nombre" name="nombre" required pattern="[A-Za-z0-9 ]+">
+            
+            <label for="apellido1">Primer Apellido:</label>
+            <input type="text" id="apellido1" name="apellido1" required pattern="[A-Za-z0-9 ]+">
+            
+            <label for="apellido2">Segundo Apellido:</label>
+            <input type="text" id="apellido2" name="apellido2" required pattern="[A-Za-z0-9 ]+">
+            
+            <label for="tipo_usuario">Tipo de Usuario:</label>
+            <select id="tipo_usuario" name="tipo_usuario" required>
+                <option value="medico">Médico</option>
+                <option value="paciente">Paciente</option>
+                <option value="administrador">Administrador</option>
+            </select>
+            
+            <button type="submit">Registrar</button>
+        </form>
+    </div>
+</body>
+</html>

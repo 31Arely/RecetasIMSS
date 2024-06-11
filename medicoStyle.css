@@ -1,0 +1,114 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #72c3fc, #1c8dff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    color: #333;
+}
+
+.container {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 600px;
+    max-width: 100%;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logout-button {
+    padding: 10px 20px;
+    background-color: #ff4d4d;
+    border: none;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.logout-button:hover {
+    background-color: #cc0000;
+}
+
+.form-box {
+    padding: 20px;
+    text-align: center;
+}
+
+.form-box h2 {
+    margin: 0 0 20px;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus, .form-group select:focus {
+    border-color: #1c8dff;
+    box-shadow: 0 0 5px rgba(28, 141, 255, 0.3);
+}
+
+.form-group button {
+    padding: 12px;
+    background-color: #1c8dff;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.form-group button:hover {
+    background-color: #006bbf;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+    display: none;
+}
+
+#medicinesList .form-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#medicinesList .form-group select {
+    width: 70%;
+    margin-right: 10px;
+}
+
+#medicinesList .form-group input[type="number"] {
+    width: 25%;
+}

@@ -1,0 +1,94 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #72c3fc, #1c8dff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    color: #333;
+}
+
+.container {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 800px;
+    max-width: 100%;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logout-button {
+    padding: 10px 20px;
+    background-color: #ff4d4d;
+    border: none;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.logout-button:hover {
+    background-color: #cc0000;
+}
+
+.content-box {
+    padding: 20px;
+    text-align: left;
+}
+
+.content-box h2 {
+    margin: 0 0 20px;
+    font-weight: 500;
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table th {
+    background-color: #f4f4f4;
+    font-weight: 500;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.error-message {
+    color: red;
+    display: none;
+    text-align: center;
+}
+
+button.update-status {
+    padding: 5px 10px;
+    background-color: #1c8dff;
+    border: none;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button.update-status:hover {
+    background-color: #006bbf;
+}
