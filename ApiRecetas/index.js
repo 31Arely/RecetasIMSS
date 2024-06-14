@@ -2,10 +2,12 @@ const express = require('express');
 const cors = require('cors')
 const mongoose = require('mongoose');
 const User = require('./model/user');
+const path = require('path');
 
 const app = express();
 const port = 3000;
 
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors())
 app.use(express.json());
 
@@ -25,7 +27,8 @@ app.post('/api/users', (req, res) => {
         }
         console.log(resultado, "Resultado");
         console.log('Usuario creado');
-        res.redirect('/login');
+        res.status(201).json({ message: 'Usuario creado' });
+        //res.redirect('../public/login');
     });
 });
 
