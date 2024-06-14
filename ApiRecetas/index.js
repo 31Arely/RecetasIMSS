@@ -3,6 +3,7 @@ const cors = require('cors')
 const mongoose = require('mongoose');
 const User = require('./model/user');
 const path = require('path');
+const bcrypt = require('bcrypt');
 
 const app = express();
 const port = 3000;
@@ -30,6 +31,26 @@ app.post('/api/users', (req, res) => {
         res.status(201).json({ message: 'Usuario creado' });
         //res.redirect('../public/login');
     });
+});
+
+app.post('/api/login', async (req, res) => {
+    const { curp, password } = req.body;
+    try {
+        const user = await User.findOne({ curp });
+        if (!user) {
+            return res.status(401).json({ message: 'CURP o contraseña incorrectos' });
+        }
+
+        const isMatch = bcrypt.compareSync(password, user.password);
+        if (!isMatch) {
+            return res.status(401).json({ message: 'CURP o contraseña incorrectos' });
+        }
+
+        res.status(200).json({ message: 'Inicio de sesión exitoso', userType: user.userType });
+    } catch (error) {
+        console.error('Error al iniciar sesión:', error);
+        res.status(500).json({ message: 'Error al iniciar sesión' });
+    }
 });
 
 mongoose.connect('mongodb://localhost:27017/RecetasIMSS', {
