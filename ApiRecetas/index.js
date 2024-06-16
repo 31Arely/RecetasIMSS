@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors')
 const mongoose = require('mongoose');
 const User = require('./model/user');
+const Prescription = require('./model/prescription');
 const path = require('path');
 const bcrypt = require('bcrypt');
 
@@ -53,6 +54,43 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
+app.post('/api/prescriptions', async (req, res) => {
+    const { patientCURP, doctorCURP, address, colonia, ciudad, estado, cp, medicines } = req.body;
+    const newPrescription = new Prescription({
+        pacienteCURP,
+        medicoCURP,
+        direccion,
+        colonia,
+        ciudad,
+        estado,
+        cp,
+        medicamentos
+    });
+
+    try {
+        await newPrescription.save();
+        res.status(201).json({ message: 'Receta creada exitosamente' });
+    } catch (error) {
+        console.error('Error al crear la receta:', error);
+        res.status(500).json({ message: 'Error al crear la receta' });
+    }
+});
+
+app.post('/api/validateCurp', async (req, res) => {
+    const { curp } = req.body;
+    try {
+        const user = await User.findOne({ curp });
+        if (!user) {
+            return res.status(404).json({ message: 'CURP no encontrado' });
+        }
+        res.status(200).json({ message: 'CURP válido', name: `${user.name} ${user.fLastName} ${user.lLastName}` });
+    } catch (error) {
+        console.error('Error al validar CURP:', error);
+        res.status(500).json({ message: 'Error al validar CURP' });
+    }
+});
+
+
 mongoose.connect('mongodb://localhost:27017/RecetasIMSS', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -66,49 +104,5 @@ mongoose.connect('mongodb://localhost:27017/RecetasIMSS', {
         });
     }
 });
-
-
-/*const express = require('express');
-const app = express();
-const mongoose = require('mongoose');
-const User = require("./model/user");
-
-app.use(express.json());
-
-const port = 3000;
-
-const User = mongoose.model('User', userSchema);
-
-app.get('/', (req, res) => {
-    res.send('Hola mundo');
-});
-
-app.post('/api/users', (req, res) => {
-    console.log(req.body + "body");
-    let datos = req.body;
-    User.create(datos)
-    .then(resultado => {
-        console.log(resultado + "Resultado");
-        console.log('usuario creado');
-        res.redirect('/login');
-    })
-    .catch(err => {console.log('Error: ' + err)});
-    res.send('Usuario creado.');
-})
-
-app.listen(port, () => {
-    console.log(`La api esta escuchando en http://localhost:${port}`);
-});
-
-mongoose.connect('mongodb://localhost:27017/RecetasIMSS', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
-
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'Error de conexión:'));
-db.once('open', () => {
-    console.log('Conectado a la base de datos');
-}); */
 
 

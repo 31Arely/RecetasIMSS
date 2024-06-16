@@ -49,32 +49,3 @@ userSchema.methods.comparePassword = function (password) {
 module.exports = mongoose.model('User', userSchema);
 
 
-/*const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-
-const {Schema} = mongoose;
-const userSchema = new Schema({
-    curp: String, 
-    password: String,
-    name: String,
-    fLastName: String,
-    lLastName: String,
-    userType: String,
-});
-
-userSchema.methods.encryptPassword = (password) => {
-    return bcrypt.hashSync(password, this.password);
-};
-
-userSchema.methods.comparePassword = function (password){
-    return bcrypt.compareSync(password, this.password);
-};
-
-module.exports = mongoose.model('User', userSchema); */
-
-
-/*userSchema.methods.encryptPassword = function (password) {
-    const salt = bcrypt.genSaltSync(10);
-    this.password = bcrypt.hashSync(password, salt);
-    return this.password;
-};*/

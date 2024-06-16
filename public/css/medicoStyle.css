@@ -98,17 +98,17 @@ body {
     display: none;
 }
 
-#medicinesList .form-group {
+#listaMedicamentos .form-group {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-#medicinesList .form-group select {
+#listaMedicamentos .form-group select {
     width: 70%;
     margin-right: 10px;
 }
 
-#medicinesList .form-group input[type="number"] {
+#listaMedicamentos .form-group input[type="number"] {
     width: 25%;
 }
