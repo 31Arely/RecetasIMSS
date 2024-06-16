@@ -2,8 +2,6 @@ async function validarCURP() {
     const curp = document.getElementById('curp').value;
     const errorMessage = document.getElementById('errorMessage');
 
-    
-
     try {
         const response = await fetch('http://localhost:3000/api/validateCurp', {
             method: 'POST',
@@ -77,17 +75,41 @@ document.getElementById('recetaForm').addEventListener('submit', async function(
     const ciudad = document.getElementById('ciudad').value;
     const estado = document.getElementById('estado').value;
     const cp = document.getElementById('cp').value;
+    const status = document.getElementById('status').value;
 
     const medicines = [];
     for (let i = 1; i <= medicineCount; i++) {
-        const medicineName = document.getElementById(`medicine${i}`).value;
+        const medicineElement = document.getElementById(`medicamento${i}`);
+        const quantityElement = document.getElementById(`quantity${i}`);
+        if (medicineElement && quantityElement) {
+            const medicineName = medicineElement.value;
+            const quantity = quantityElement.value;
+            medicines.push({ nombre: medicineName, cantidad: parseInt(quantity) });
+        }
+    }
+    
+    /*for (let i = 1; i <= medicineCount; i++) {
+        const medicineName = document.getElementById(`medicamento${i}`).value;
         const quantity = document.getElementById(`quantity${i}`).value;
         medicines.push({ name: medicineName, quantity: parseInt(quantity) });
-    }
+    }*/
 
     const doctorCURP = 'CURP_DEL_DOCTOR'; // Debes reemplazar esto con la CURP del doctor logueado
+    //const doctorCURP = localStorage.getItem('doctorCURP');
 
     const data = {
+        pacienteCURP: curp,
+        medicoCURP: doctorCURP,
+        direccion: address,
+        colonia,
+        ciudad,
+        estado,
+        cp,
+        medicamentos: medicines,
+        status,
+        date: new Date()
+    };
+    /*const data = {
         patientCURP: curp,
         doctorCURP,
         address,
@@ -96,7 +118,8 @@ document.getElementById('recetaForm').addEventListener('submit', async function(
         estado,
         cp,
         medicines
-    };
+        
+    };*/
 
     try {
         const response = await fetch('http://localhost:3000/api/prescriptions', {

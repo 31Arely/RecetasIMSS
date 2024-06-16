@@ -76,6 +76,15 @@
                     <button type="button" onclick="addMedicamento()">Agregar Medicamento</button>
                 </div>
                 <div class="form-group">
+                    <label for="status">Estatus</label>
+                    <select id="status" name="status" required>
+                        <option value="Solicitado">Solicitada</option>
+                        <option value="En Proceso">En Proceso</option>
+                        <option value="Enviada">Enviada</option>
+                        <option value="Surtida">Surtida</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <button type="submit" style="display:none;" id="submitBtn">Guardar Receta</button>
                 </div>
                 <div class="error-message" id="errorMessage">Error en el formulario. Verifique los datos ingresados.</div>

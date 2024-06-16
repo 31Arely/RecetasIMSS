@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors')
 const mongoose = require('mongoose');
 const User = require('./model/user');
-const Prescription = require('./model/prescription');
+const Receta = require('./model/receta');
 const path = require('path');
 const bcrypt = require('bcrypt');
 
@@ -55,23 +55,24 @@ app.post('/api/login', async (req, res) => {
 });
 
 app.post('/api/prescriptions', async (req, res) => {
-    const { patientCURP, doctorCURP, address, colonia, ciudad, estado, cp, medicines } = req.body;
-    const newPrescription = new Prescription({
-        pacienteCURP,
-        medicoCURP,
-        direccion,
-        colonia,
-        ciudad,
-        estado,
-        cp,
-        medicamentos
-    });
-
+    const { pacienteCURP, medicoCURP, direccion, colonia, ciudad, estado, cp, medicamentos, status } = req.body;
+    
     try {
-        await newPrescription.save();
+        const newReceta = new Receta({
+            pacienteCURP,
+            medicoCURP,
+            direccion,
+            colonia,
+            ciudad,
+            estado,
+            cp,
+            medicamentos,
+            status
+        });
+
+        await newReceta.save();
         res.status(201).json({ message: 'Receta creada exitosamente' });
     } catch (error) {
-        console.error('Error al crear la receta:', error);
         res.status(500).json({ message: 'Error al crear la receta' });
     }
 });
