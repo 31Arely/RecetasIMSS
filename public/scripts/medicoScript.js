@@ -43,24 +43,22 @@ function addMedicamento() {
     newMedicine.innerHTML = `
         <label for="medicine${medicineCount}">Medicamento ${medicineCount}</label>
         <select id="medicine${medicineCount}" name="medicine${medicineCount}" required>
-            option value="">Selecciona un medicamento</option>
-                <option value="">Selecciona un medicamento</option>
-                    <option value="">Selecciona un medicamento</option>
-                        <option value="01-PA">Paracetamol</option>
-                        <option value="02-IB">Ibuprofeno</option>
-                        <option value="03-AMO">Amoxicilina</option>
-                        <option value="04-MTF">Metformina</option>
-                        <option value="05-LOR">Loratadina</option>
-                        <option value="06-NAP">Naproxeno</option>
-                        <option value="07-KET">Ketorolaco</option>
-                        <option value="08-DLO">Diclofenaco</option>
-                        <option value="09-AMP">Ampicilina</option>
-                        <option value="10-DXC">Dicloxacilina</option>
-                        <option value="11-AMX">Ambroxol</option>
-                        <option value="12-MFD">Metilfenidato</option>
-                        <option value="13-DZP">Diazepam</option>
-                        <option value="14-LST">Losartán</option>
-                        <option value="15-AMT">Amantadina</option>
+            <option value="">Selecciona un medicamento</option>
+                <option value="01-PA">Paracetamol</option>
+                <option value="02-IB">Ibuprofeno</option>
+                <option value="03-AMO">Amoxicilina</option>
+                <option value="04-MTF">Metformina</option>
+                <option value="05-LOR">Loratadina</option>
+                <option value="06-NAP">Naproxeno</option>
+                <option value="07-KET">Ketorolaco</option>
+                <option value="08-DLO">Diclofenaco</option>
+                <option value="09-AMP">Ampicilina</option>
+                <option value="10-DXC">Dicloxacilina</option>
+                <option value="11-AMX">Ambroxol</option>
+                <option value="12-MFD">Metilfenidato</option>
+                <option value="13-DZP">Diazepam</option>
+                <option value="14-LST">Losartán</option>
+                <option value="15-AMT">Amantadina</option>
             <!-- Opciones de medicamentos -->
         </select>
         <input type="number" id="quantity${medicineCount}" name="quantity${medicineCount}" placeholder="Cantidad" min="1" required>
