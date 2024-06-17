@@ -39,22 +39,22 @@ function addMedicamento() {
     const newMedicine = document.createElement('div');
     newMedicine.className = 'form-group';
     newMedicine.innerHTML = `
-        <label for="medicine${medicineCount}">Medicamento ${medicineCount}</label>
-        <select id="medicine${medicineCount}" name="medicine${medicineCount}" required>
+        <label for="medicamento${medicineCount}">Medicamento ${medicineCount}</label>
+        <select id="medicamento${medicineCount}" name="medicamento${medicineCount}" required>
             <option value="">Selecciona un medicamento</option>
-                <option value="01-PA">Paracetamol</option>
-                <option value="02-IB">Ibuprofeno</option>
-                <option value="03-AMO">Amoxicilina</option>
-                <option value="04-MTF">Metformina</option>
-                <option value="05-LOR">Loratadina</option>
-                <option value="06-NAP">Naproxeno</option>
-                <option value="07-KET">Ketorolaco</option>
-                <option value="08-DLO">Diclofenaco</option>
-                <option value="09-AMP">Ampicilina</option>
-                <option value="10-DXC">Dicloxacilina</option>
-                <option value="11-AMX">Ambroxol</option>
-                <option value="12-MFD">Metilfenidato</option>
-                <option value="13-DZP">Diazepam</option>
+                <option value="01-PA Paracetamol">Paracetamol</option>
+                <option value="02-IB Ibuprofeno">Ibuprofeno</option>
+                <option value="03-AMO Amoxicilina">Amoxicilina</option>
+                <option value="04-MTF Metformina">Metformina</option>
+                <option value="05-LOR Loratadina">Loratadina</option>
+                <option value="06-NAP Naproxeno">Naproxeno</option>
+                <option value="07-KET Ketorolaco">Ketorolaco</option>
+                <option value="08-DLO Diclofenaco">Diclofenaco</option>
+                <option value="09-AMP Ampicilina">Ampicilina</option>
+                <option value="10-DXC Dicloxacilina">Dicloxacilina</option>
+                <option value="11-AMX Ambroxol">Ambroxol</option>
+                <option value="12-MFD Metilfenidato">Metilfenidato</option>
+                <option value="13-DZP Diazepam">Diazepam</option>
                 <option value="14-LST">Losartán</option>
                 <option value="15-AMT">Amantadina</option>
             <!-- Opciones de medicamentos -->
@@ -84,19 +84,16 @@ document.getElementById('recetaForm').addEventListener('submit', async function(
         if (medicineElement && quantityElement) {
             const medicineName = medicineElement.value;
             const quantity = quantityElement.value;
+            if(medicineName && quantity){
             medicines.push({ nombre: medicineName, cantidad: parseInt(quantity) });
+            }
         }
     }
-    
-    /*for (let i = 1; i <= medicineCount; i++) {
-        const medicineName = document.getElementById(`medicamento${i}`).value;
-        const quantity = document.getElementById(`quantity${i}`).value;
-        medicines.push({ name: medicineName, quantity: parseInt(quantity) });
-    }*/
 
-    const doctorCURP = 'CURP_DEL_DOCTOR'; // Debes reemplazar esto con la CURP del doctor logueado
-    //const doctorCURP = localStorage.getItem('doctorCURP');
-
+    console.log(medicineCount); 
+    const doctorCURP = localStorage.getItem('doctorCURP');
+    console.log(medicines);
+    alert(medicines.values)
     const data = {
         pacienteCURP: curp,
         medicoCURP: doctorCURP,
@@ -109,18 +106,7 @@ document.getElementById('recetaForm').addEventListener('submit', async function(
         status,
         date: new Date()
     };
-    /*const data = {
-        patientCURP: curp,
-        doctorCURP,
-        address,
-        colonia,
-        ciudad,
-        estado,
-        cp,
-        medicines
-        
-    };*/
-
+    console.log(data);
     try {
         const response = await fetch('http://localhost:3000/api/prescriptions', {
             method: 'POST',
@@ -129,7 +115,7 @@ document.getElementById('recetaForm').addEventListener('submit', async function(
             },
             body: JSON.stringify(data)
         });
-
+        
         const result = await response.json();
 
         if (response.status === 201) {

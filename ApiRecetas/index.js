@@ -47,7 +47,7 @@ app.post('/api/login', async (req, res) => {
             return res.status(401).json({ message: 'CURP o contraseña incorrectos' });
         }
 
-        res.status(200).json({ message: 'Inicio de sesión exitoso', userType: user.userType });
+        res.status(200).json({ message: 'Inicio de sesión exitoso', curp: user.curp, userType: user.userType });
     } catch (error) {
         console.error('Error al iniciar sesión:', error);
         res.status(500).json({ message: 'Error al iniciar sesión' });
@@ -56,7 +56,7 @@ app.post('/api/login', async (req, res) => {
 
 app.post('/api/prescriptions', async (req, res) => {
     const { pacienteCURP, medicoCURP, direccion, colonia, ciudad, estado, cp, medicamentos, status } = req.body;
-    
+    console.log('Datos recibidos:', req.body);
     try {
         const newReceta = new Receta({
             pacienteCURP,

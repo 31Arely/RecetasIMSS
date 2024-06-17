@@ -20,6 +20,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
         if (result.userType === 'paciente') {
             window.location.href = 'paciente.html';
         } else if (result.userType === 'medico') {
+            localStorage.setItem('doctorCURP', result.curp);
             window.location.href = 'medico.html';
         }
     } else {
