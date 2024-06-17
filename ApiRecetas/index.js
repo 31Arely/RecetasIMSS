@@ -91,6 +91,22 @@ app.post('/api/validateCurp', async (req, res) => {
     }
 });
 
+//app.get('/api/prescriptions/paciente/:curp' async (req,res) =>)
+
+    app.get('/api/prescriptions/:curp', async (req, res) => {
+        const pacienteCURP = req.params.curp;
+    
+        try {
+            const recetas = await Receta.find({ pacienteCURP });
+            if (recetas.length === 0) {
+                return res.status(404).json({ message: 'No se encontraron recetas para este paciente' });
+            }
+            res.status(200).json(recetas);
+        } catch (error) {
+            console.error('Error al obtener recetas:', error);
+            res.status(500).json({ message: 'Error al obtener recetas' });
+        }
+    });
 
 mongoose.connect('mongodb://localhost:27017/RecetasIMSS', {
     useNewUrlParser: true,

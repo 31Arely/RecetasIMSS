@@ -1,64 +1,48 @@
-const curp = localStorage.getItem('pacienteCURP'); // Assuming you have stored the patient's CURP in local storage
-
-const tablaRecetas = document.getElementById('tablaRecetas');
-const errorMessage = document.getElementById('errorMessage');
-
-async function fetchPrescriptions() {
-    try {
-        const response = await fetch(`http://localhost:3000/api/prescriptions/paciente/${curp}`, {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
-
-    const data = await response.json();
-
-    if (response.status === 200) {
-        if (data.length === 0) {
-            errorMessage.textContent = 'No se encontraron recetas';
-            errorMessage.style.display = 'block';
-            return;
-        }
-
-        errorMessage.style.display = 'none';
-
-        tablaRecetas.innerHTML = `
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Fecha</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-        ${data.map(receta => `
-            <tr>
-                <td>${receta._id}</td>
-                <td>${new Date(receta.date).toLocaleDateString()}</td>
-                <td>${receta.status}</td>
-                <td>
-                    <button onclick="verRecetaDetails('${receta._id}')">Ver Detalles</button>
-                </td>
-            </tr>
-            `).join('')}
-            </tbody>
-        `;
-        } else {
-            errorMessage.textContent = 'Error al cargar recetas';
-            errorMessage.style.display = 'block';
-        }
-    } catch (error) {
-        console.error('Error al cargar recetas:', error);
-        errorMessage.textContent = 'Error al cargar recetas';
-        errorMessage.style.display = 'block';
+document.addEventListener('DOMContentLoaded', function() {
+    const pacienteCURP = localStorage.getItem('pacienteCURP');
+    if (!pacienteCURP) {
+        alert('No se encontró CURP del paciente. Inicie sesión nuevamente.');
+        window.location.href = 'login.html';
+        return;
     }
-}
 
-function verRecetaDetails(recetaId) {
-  // Implement logic to display recipe details in a modal or new page
-    console.log('Ver detalles de la receta:', recetaId);
-  // You can fetch the recipe details using the recetaId and display them in a modal or new page
-}
+    fetch(`http://localhost:3000/api/prescriptions/${pacienteCURP}`)// es un get 
+        .then(response => response.json())
+        .then(recetas => {
+            const tablaRecetas = document.getElementById('tablaRecetas').getElementsByTagName('tbody')[0];
+            if (recetas.length === 0) {
+                document.getElementById('errorMessage').style.display = 'block';
+                return;
+            }
 
-//fetchPrescriptions(); // Call the function to fetch prescriptions on page load
+            recetas.forEach(receta => {
+                const newRow = tablaRecetas.insertRow();
+
+                const cellId = newRow.insertCell(0);
+                cellId.textContent = receta._id;
+
+                const cellFecha = newRow.insertCell(1);
+                cellFecha.textContent = new Date(receta.date).toLocaleDateString();
+
+                const cellEstado = newRow.insertCell(2);
+                cellEstado.textContent = receta.status;
+
+                const cellAcciones = newRow.insertCell(3);
+                const viewButton = document.createElement('button');
+                viewButton.textContent = 'Ver Detalles';
+                viewButton.onclick = () => {
+                    alert(`Medicamentos:\n${receta.medicamentos.map(med => `${med.nombre}: ${med.cantidad}`).join('\n')}`);
+                };
+                cellAcciones.appendChild(viewButton);
+            });
+        })
+        .catch(error => {
+            console.error('Error al obtener recetas:', error);
+            document.getElementById('errorMessage').style.display = 'block';
+        });
+});
+
+function logout() {
+    localStorage.removeItem('pacienteCURP');
+    window.location.href = 'login.html';
+}
