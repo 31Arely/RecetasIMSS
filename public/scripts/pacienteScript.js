@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const viewButton = document.createElement('button');
                 viewButton.textContent = 'Ver Detalles';
                 viewButton.onclick = () => {
-                    alert(`Medicamentos:\n${receta.medicamentos.map(med => `${med.nombre}: ${med.cantidad}`).join('\n')}`);
+                    alert(`Medicamentos:\n${receta.medicamentos.map(med => `${med.nombre}: ${med.cantidad} cajas`).join('\n')}`);
                 };
                 cellAcciones.appendChild(viewButton);
             });
