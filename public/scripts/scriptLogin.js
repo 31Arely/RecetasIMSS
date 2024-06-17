@@ -18,6 +18,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
 
     if (response.status === 200) {
         if (result.userType === 'paciente') {
+            localStorage.setItem('pacienteCURP', result.curp);
             window.location.href = 'paciente.html';
         } else if (result.userType === 'medico') {
             localStorage.setItem('doctorCURP', result.curp);

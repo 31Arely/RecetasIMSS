@@ -133,5 +133,8 @@ document.getElementById('recetaForm').addEventListener('submit', async function(
 
 function logout() {
     // Implementa la lógica de cierre de sesión si es necesario
+    
+    doctorCURP = null;
+    window.location.href = 'login.html';
     alert('Sesión cerrada');
 }
