@@ -55,8 +55,8 @@ function addMedicamento() {
                 <option value="11-AMX Ambroxol">Ambroxol</option>
                 <option value="12-MFD Metilfenidato">Metilfenidato</option>
                 <option value="13-DZP Diazepam">Diazepam</option>
-                <option value="14-LST">Losartán</option>
-                <option value="15-AMT">Amantadina</option>
+                <option value="14-LST Losartan">Losartán</option>
+                <option value="15-AMT Amantadina">Amantadina</option>
             <!-- Opciones de medicamentos -->
         </select>
         <input type="number" id="quantity${medicineCount}" name="quantity${medicineCount}" placeholder="Cantidad" min="1" required>
