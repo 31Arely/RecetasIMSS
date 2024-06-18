@@ -23,6 +23,9 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
         } else if (result.userType === 'medico') {
             localStorage.setItem('doctorCURP', result.curp);
             window.location.href = 'medico.html';
+        } else if (result.userType ==='administrador'){
+            localStorage.setItem('adminCURP', result.curp);
+            window.location.href = 'administrador.html';
         }
     } else {
         errorMessage.style.display = 'block';

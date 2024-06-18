@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel del Paciente</title>
+    <title>Panel de Administrador</title>
     <link rel="stylesheet" href="./css/pacienteStyle.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
@@ -13,11 +13,18 @@
             <h1>Panel del Administrador</h1>
             <button class="logout-button" onclick="logout()">Cerrar Sesión</button>
         </div>
+        
         <form id="recetaForm">
             <div class="form-group">
                 <label for="curp">CURP del Paciente</label>
                 <input type="text" id="curp" name="curp" maxlength="18" placeholder="Ingresa CURP del paciente" required>
             </div>
+            <button type="button" onclick="buscarRecetas()">Buscar Recetas</button>
+            <div class="form-group" id="patientNameGroup" style="display:none;">
+                <!--<label for="patientName">Nombre del Paciente</label>-->
+                <input type="text" id="patientName" name="patientName" readonly>
+            </div>
+        </form>
         <div class="content-box">
             <h2>Recetas del paciente</h2>
             <table id="tablaRecetas">
@@ -36,6 +43,6 @@
             <div class="error-message" id="errorMessage">No se encontraron recetas.</div>
         </div>
     </div>
-    <!--<script src="scripts/pacienteScript.js"></script> -->
+    <script src="scripts/adminScript.js"></script>
 </body>
 </html>
