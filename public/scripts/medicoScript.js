@@ -1,9 +1,9 @@
-async function validarCURP() {
+async function validarCURP() {   //Valida la curp de un paciente
     const curp = document.getElementById('curp').value;
     const errorMessage = document.getElementById('errorMessage');
 
     try {
-        const response = await fetch('http://localhost:3000/api/validateCurp', {
+        const response = await fetch('http://localhost:3000/api/validateCurp', {  //Llamada asincrona a la API 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -13,7 +13,7 @@ async function validarCURP() {
 
         const result = await response.json();
 
-        if (response.status === 200) {
+        if (response.status === 200) {  //Construccion de seccion de datos del paciente
             document.getElementById('patientName').value = result.name;
             document.getElementById('patientNameGroup').style.display = 'block';
             document.getElementById('addressSection').style.display = 'block';
@@ -32,7 +32,7 @@ async function validarCURP() {
 
 let medicineCount = 1;
 
-function addMedicamento() {
+function addMedicamento() {  //Funcion para agregar opciones de un nuevo medicamento en la receta 
     medicineCount++;
     const listaMedicamentos = document.getElementById('listaMedicamentos');
 
@@ -66,8 +66,8 @@ function addMedicamento() {
     
 }
 
-document.getElementById('recetaForm').addEventListener('submit', async function(event) {
-    event.preventDefault();
+document.getElementById('recetaForm').addEventListener('submit', async function(event) {  //Recopilacion de datos ingresados por el medico
+    event.preventDefault();  //Previene el comportamiento por default de un formulario con submit
 
     const curp = document.getElementById('curp').value;
     const address = document.getElementById('address').value;
@@ -92,8 +92,6 @@ document.getElementById('recetaForm').addEventListener('submit', async function(
 
     console.log(medicineCount); 
     const doctorCURP = localStorage.getItem('doctorCURP');
-    console.log(medicines);
-    alert(medicines.values)
     const data = {
         pacienteCURP: curp,
         medicoCURP: doctorCURP,
@@ -108,7 +106,7 @@ document.getElementById('recetaForm').addEventListener('submit', async function(
     };
     console.log(data);
     try {
-        const response = await fetch('http://localhost:3000/api/prescriptions', {
+        const response = await fetch('http://localhost:3000/api/prescriptions', {  //Llamada a API para crear una receta con los datos recopilados 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -132,9 +130,7 @@ document.getElementById('recetaForm').addEventListener('submit', async function(
 });
 
 function logout() {
-    // Implementa la lógica de cierre de sesión si es necesario
-    
-    doctorCURP = null;
+    localStorage.removeItem('doctorCURP');
     window.location.href = 'login.html';
     alert('Sesión cerrada');
 }

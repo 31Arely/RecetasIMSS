@@ -1,4 +1,4 @@
-async function buscarRecetas() {
+async function buscarRecetas() {   //Funcion de busqueda de recetas por curp en la API
     const curp = document.getElementById('curp').value.trim();
     if (!curp) {
         alert('Por favor, ingrese un CURP.');
@@ -6,10 +6,10 @@ async function buscarRecetas() {
     }
 
     try {
-        const response = await fetch(`http://localhost:3000/api/prescriptions/${curp}`);
+        const response = await fetch(`http://localhost:3000/api/prescriptions/${curp}`);   //Llamada asincrona a la API
         const recetas = await response.json();
 
-        if (response.status === 404) {
+        if (response.status === 404) {  //Escenario recetas no encontradas 
             document.getElementById('errorMessage').style.display = 'block';
             document.getElementById('patientNameGroup').style.display = 'none';
             document.getElementById('tablaRecetas').getElementsByTagName('tbody')[0].innerHTML = '';
@@ -24,9 +24,9 @@ async function buscarRecetas() {
         patientNameInput.value = `${primerReceta.pacienteCURP}`;
 
         const tablaRecetas = document.getElementById('tablaRecetas').getElementsByTagName('tbody')[0];
-        tablaRecetas.innerHTML = ''; // Limpiar tabla antes de añadir nuevas filas
+        tablaRecetas.innerHTML = ''; //Limpiar tabla antes de añadir nuevas filas
 
-        recetas.forEach(receta => {
+        recetas.forEach(receta => {  //Llenado de elementos de la tabla con las recetas 
             const newRow = tablaRecetas.insertRow();
 
             const cellId = newRow.insertCell(0);
@@ -39,7 +39,7 @@ async function buscarRecetas() {
             cellEstado.textContent = receta.status;
 
             const cellMedicamentos = newRow.insertCell(3);
-            cellMedicamentos.textContent = receta.medicamentos.map(med => `${med.nombre}: ${med.cantidad}`).join(', ');
+            cellMedicamentos.textContent = receta.medicamentos.map(med => `${med.nombre}: ${med.cantidad} cajas`).join(', ');
         });
     } catch (error) {
         console.error('Error al obtener recetas:', error);
@@ -47,7 +47,7 @@ async function buscarRecetas() {
     }
 }
 
-function logout() {
+function logout() {   //Funcion para cerrar sesion 
     localStorage.removeItem('adminCURP');
     window.location.href = 'login.html';
 }

@@ -1,3 +1,4 @@
+//Declaracion de constantes necesarias para el API
 const express = require('express');
 const cors = require('cors')
 const mongoose = require('mongoose');
@@ -7,17 +8,17 @@ const path = require('path');
 const bcrypt = require('bcrypt');
 
 const app = express();
-const port = 3000;
+const port = 3000;  //Puerto de API
 
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors())
-app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));  //Configuracion de rutas publicas 
+app.use(cors())  //Configuracion de CORS
+app.use(express.json());  //Traduccion a JSON de bodys
 
-app.get('/', (req, res) => {
+app.get('/', (req, res) => {   //Hola mundo de API (prueba de funcionamiento) 
     res.send('Hola mundo');
 });
 
-app.post('/api/users', (req, res) => {
+app.post('/api/users', (req, res) => {  //URI para POST de usuarios (crear usuarios)
     console.log(req.body, "body");
     let datos = req.body;
 
@@ -27,14 +28,13 @@ app.post('/api/users', (req, res) => {
             console.log('Error:', err);
             return res.status(500).send('Error al crear el usuario.');
         }
-        console.log(resultado, "Resultado");
+        console.log(resultado, "Resultado");   //
         console.log('Usuario creado');
         res.status(201).json({ message: 'Usuario creado' });
-        //res.redirect('../public/login');
     });
 });
 
-app.post('/api/login', async (req, res) => {
+app.post('/api/login', async (req, res) => {  //URI para iniciar sesion 
     const { curp, password } = req.body;
     try {
         const user = await User.findOne({ curp });
@@ -54,11 +54,11 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
-app.post('/api/prescriptions', async (req, res) => {
+app.post('/api/prescriptions', async (req, res) => {  //URI POST crear recetas
     const { pacienteCURP, medicoCURP, direccion, colonia, ciudad, estado, cp, medicamentos, status } = req.body;
     console.log('Datos recibidos:', req.body);
     try {
-        const newReceta = new Receta({
+        const newReceta = new Receta({  //
             pacienteCURP,
             medicoCURP,
             direccion,
@@ -77,8 +77,8 @@ app.post('/api/prescriptions', async (req, res) => {
     }
 });
 
-app.post('/api/validateCurp', async (req, res) => {
-    const { curp } = req.body;
+app.post('/api/validateCurp', async (req, res) => {  //URI para validar que el usuario existe 
+    const { curp } = req.body;                       //Se usa en diferentes pantallas (login, medico, paciente) 
     try {
         const user = await User.findOne({ curp });
         if (!user) {
@@ -91,14 +91,14 @@ app.post('/api/validateCurp', async (req, res) => {
     }
 });
 
-app.get('/api/prescriptions/:curp', async (req, res) => {
+app.get('/api/prescriptions/:curp', async (req, res) => {  //URI  para obtener las recetas basadas en la curp de un paciente.
     const pacienteCURP = req.params.curp;
 
     try {
         const recetas = await Receta.find({ pacienteCURP });
         if (recetas.length === 0) {
-            return res.status(404).json({ message: 'No se encontraron recetas para este paciente' });
-        }
+            return res.status(404).json({ message: 'No se encontraron recetas para este paciente' });  //la busqueda puede hacerse por la curp de un 
+        }                                                                                              //medico pero sino tine recetas como paciente muestra recetas no encontradas
         res.status(200).json(recetas);
     } catch (error) {
         console.error('Error al obtener recetas:', error);
@@ -106,22 +106,7 @@ app.get('/api/prescriptions/:curp', async (req, res) => {
     }
 });
 
-    /*app.get('/api/prescriptions/:curp', async (req, res) => {
-        const pacienteCURP = req.params.curp;
-    
-        try {
-            const recetas = await Receta.find({ pacienteCURP });
-            if (recetas.length === 0) {
-                return res.status(404).json({ message: 'No se encontraron recetas para este paciente' });
-            }
-            res.status(200).json(recetas);
-        } catch (error) {
-            console.error('Error al obtener recetas:', error);
-            res.status(500).json({ message: 'Error al obtener recetas' });
-        }
-    });*/
-
-mongoose.connect('mongodb://localhost:27017/RecetasIMSS', {
+mongoose.connect('mongodb://localhost:27017/RecetasIMSS', {   //Conexion a base de datos
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }, (err) => {
@@ -134,5 +119,4 @@ mongoose.connect('mongodb://localhost:27017/RecetasIMSS', {
         });
     }
 });
-
 
