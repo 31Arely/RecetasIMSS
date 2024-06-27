@@ -1,3 +1,5 @@
+const API_URL = 'http://localhost:4000';
+
 document.addEventListener('DOMContentLoaded', function() {  //Funcion que carga el contenido de la pagina al renderizar 
     const pacienteCURP = localStorage.getItem('pacienteCURP');
     if (!pacienteCURP) {
@@ -6,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {  //Funcion que carga 
         return;
     }
 
-    fetch(`http://localhost:3000/api/prescriptions/${pacienteCURP}`)  //Llamada a la API para obtener las recetas del paciente actual mediante su curp  
+    fetch(`${API_URL}/api/prescriptions/${pacienteCURP}`)  //Llamada a la API para obtener las recetas del paciente actual mediante su curp  
         .then(response => response.json())
         .then(recetas => {
             const tablaRecetas = document.getElementById('tablaRecetas').getElementsByTagName('tbody')[0];

@@ -1,9 +1,11 @@
+const API_URL = 'http://localhost:4000';
+
 async function validarCURP() {   //Valida la curp de un paciente
     const curp = document.getElementById('curp').value;
     const errorMessage = document.getElementById('errorMessage');
 
     try {
-        const response = await fetch('http://localhost:3000/api/validateCurp', {  //Llamada asincrona a la API 
+        const response = await fetch(`${API_URL}/api/validateCurp`, {  //Llamada asincrona a la API 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -106,7 +108,7 @@ document.getElementById('recetaForm').addEventListener('submit', async function(
     };
     console.log(data);
     try {
-        const response = await fetch('http://localhost:3000/api/prescriptions', {  //Llamada a API para crear una receta con los datos recopilados 
+        const response = await fetch(`${API_URL}/api/prescriptions`, {  //Llamada a API para crear una receta con los datos recopilados 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

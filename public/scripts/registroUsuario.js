@@ -1,3 +1,5 @@
+const API_URL = 'http://localhost:4000';
+
 document.getElementById('registroForm').addEventListener('submit', function(event) {   //Funcion que recopila los datos ingresados en el formulario para crear usuario
     event.preventDefault();
     const formData = {
@@ -10,13 +12,13 @@ document.getElementById('registroForm').addEventListener('submit', function(even
     };
 
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://localhost:3000/api/users', true);  //Llamada POST a API para crear un nuevo usuario
+    xhr.open('POST', `${API_URL}/api/users`, true);  //Llamada POST a API para crear un nuevo usuario
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 201) {
                 alert('Usuario creado')
-                window.location.href = 'login.html'; // Redirige al usuario al login después del registro
+                window.location.href = '/'; // Redirige al usuario al login después del registro
             } else {
                 console.error('Error al crear el usuario:', xhr.status, xhr.statusText);
                 alert('Error al crear el usuario.');

@@ -6,13 +6,18 @@ const User = require('./model/user');
 const Receta = require('./model/receta');
 const path = require('path');
 const bcrypt = require('bcrypt');
+const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost:27017/RecetasIMSS';
 
 const app = express();
-const port = 3000;  //Puerto de API
+const port = 4000;  //Puerto de API
 
 app.use(express.static(path.join(__dirname, 'public')));  //Configuracion de rutas publicas 
 app.use(cors())  //Configuracion de CORS
 app.use(express.json());  //Traduccion a JSON de bodys
+
+/*app.listen(3000, '0.0.0.0', () => {
+    console.log('Server running on port 3000');
+  });*/
 
 app.get('/', (req, res) => {   //Hola mundo de API (prueba de funcionamiento) 
     res.send('Hola mundo');
@@ -106,7 +111,22 @@ app.get('/api/prescriptions/:curp', async (req, res) => {  //URI  para obtener l
     }
 });
 
-mongoose.connect('mongodb://localhost:27017/RecetasIMSS', {   //Conexion a base de datos
+mongoose.connect(mongoUrl, {   // Conexión a base de datos
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}, (err) => {
+    if (err) {
+        console.error('Error al conectar a la base de datos', err);
+    } else {
+        console.log('Conectado a la base de datos');
+        app.listen(port, '0.0.0.0', () => {
+            console.log(`La API está escuchando en http://0,0,0,0:${port}`);
+        });
+    }
+});
+
+
+/*mongoose.connect('mongodb://localhost:27017/RecetasIMSS', {   //Conexion a base de datos
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }, (err) => {
@@ -119,4 +139,4 @@ mongoose.connect('mongodb://localhost:27017/RecetasIMSS', {   //Conexion a base 
         });
     }
 });
-
+*/

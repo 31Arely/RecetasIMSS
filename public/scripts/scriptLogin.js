@@ -1,3 +1,5 @@
+const API_URL = 'http://localhost:4000';
+
 document.getElementById('loginForm').addEventListener('submit', async function(event) {  //Funcion que recupéra los datos de curp y password para hacer login 
     event.preventDefault();
     
@@ -6,7 +8,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     const errorMessage = document.getElementById('errorMessage');
     errorMessage.style.display = 'none';
 
-    const response = await fetch('http://localhost:3000/api/login', {  //Llamada asincrona a la API para iniciar sesion  
+    const response = await fetch(`${API_URL}/api/login`, {  //Llamada asincrona a la API para iniciar sesion  
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

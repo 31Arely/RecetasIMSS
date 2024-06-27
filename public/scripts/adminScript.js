@@ -1,3 +1,4 @@
+const API_URL = 'http://localhost:4000';
 async function buscarRecetas() {   //Funcion de busqueda de recetas por curp en la API
     const curp = document.getElementById('curp').value.trim();
     if (!curp) {
@@ -6,7 +7,7 @@ async function buscarRecetas() {   //Funcion de busqueda de recetas por curp en 
     }
 
     try {
-        const response = await fetch(`http://localhost:3000/api/prescriptions/${curp}`);   //Llamada asincrona a la API
+        const response = await fetch(`${API_URL}/api/prescriptions/${curp}`);   //Llamada asincrona a la API
         const recetas = await response.json();
 
         if (response.status === 404) {  //Escenario recetas no encontradas 
