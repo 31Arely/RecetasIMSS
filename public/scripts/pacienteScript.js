@@ -46,5 +46,5 @@ document.addEventListener('DOMContentLoaded', function() {  //Funcion que carga 
 
 function logout() {  //Funcion para cerrar sesion 
     localStorage.removeItem('pacienteCURP');
-    window.location.href = 'login.html';
+    window.location.href = '/';
 }

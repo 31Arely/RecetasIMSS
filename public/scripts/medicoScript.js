@@ -133,6 +133,6 @@ document.getElementById('recetaForm').addEventListener('submit', async function(
 
 function logout() {
     localStorage.removeItem('doctorCURP');
-    window.location.href = 'login.html';
+    window.location.href = '/';
     alert('Sesión cerrada');
 }

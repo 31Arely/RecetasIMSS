@@ -50,5 +50,5 @@ async function buscarRecetas() {   //Funcion de busqueda de recetas por curp en 
 
 function logout() {   //Funcion para cerrar sesion 
     localStorage.removeItem('adminCURP');
-    window.location.href = 'login.html';
+    window.location.href = '/';
 }
